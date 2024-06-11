@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.IO;
 
 public class MainManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class MainManager : MonoBehaviour
     public int LineCount = 6;
     public Rigidbody Ball;
 
+    public Text name;
     public Text ScoreText;
     public GameObject GameOverText;
     
@@ -22,6 +24,10 @@ public class MainManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+       name.text = GameManager.instance.playerNameField.text;
+
+
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -70,7 +76,22 @@ public class MainManager : MonoBehaviour
 
     public void GameOver()
     {
+
+        if(GameManager.instance.scoreSaver < m_Points)
+        {
+            GameManager.instance.saveData(name.text, m_Points);
+        }
+        
+
         m_GameOver = true;
         GameOverText.SetActive(true);
     }
+
+
+
+    
+
+    
+
+   
 }
